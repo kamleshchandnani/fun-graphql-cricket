@@ -4,9 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "local:build": "STAGE=local NODE_ENV=development webpack --progress --watch",
+    "local:start": "STAGE=local PORT=3333 NODE_ENV=development pm2-docker pm2.json --only graphql-server-local",
+    "pm2": "pm2"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "dependencies": {
+    "compression": "1.7.4",
+    "express": "4.16.4",
+    "helmet": "3.16.0",
+    "pm2": "3.4.1",
+    "webpack": "4.29.6"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.0",
+    "babel-loader": "8.0.5",
+    "webpack-cli": "3.3.0"
+  }
 }
