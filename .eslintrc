@@ -1,0 +1,56 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "__BROWSER__": false,
+    "__IS_BROWSER__": false,
+    "__STAGE__": false,
+    "__CONFIG__": false,
+    "__VERSION__": false,
+    "__ASSETS__": false,
+    "__APP_ENV__": false,
+    "__LOCAL__": false,
+    "__DEV__": false
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ios.js", ".android.js"]
+      }
+    }
+  },
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "arrow-parens": ["error", "always"],
+    "function-paren-newline": ["error", "consistent"],
+    "no-confusing-arrow": ["off"],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
+    "no-underscore-dangle": ["off"],
+    "object-curly-newline": ["error", { "consistent": true }],
+    "prefer-promise-reject-errors": ["off"],
+    "import/no-named-default": ["off"],
+    "import/prefer-default-export": ["off"],
+    "jsx-a11y/anchor-is-valid": ["off"],
+    "jsx-a11y/click-events-have-key-events": ["off"],
+    "jsx-a11y/label-has-for": ["error", { "required": { "every": ["id"] }, "allowChildren": true }],
+    "jsx-a11y/no-noninteractive-element-interactions": ["off"],
+    "jsx-a11y/no-static-element-interactions": ["off"],
+    "react/forbid-prop-types": ["error", { "forbid": ["any"] }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js"] }],
+    "react/require-default-props": ["off"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-alert": ["warn"]
+  }
+}

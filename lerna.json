@@ -1,0 +1,20 @@
+{
+  "lerna": "2.5.1",
+  "command": {
+    "init": {
+      "exact": true
+    },
+    "bootstrap": {
+      "ignoreScripts": true,
+      "npmClientArgs": ["--no-package-lock"]
+    },
+    "publish": {
+      "exact": true
+    }
+  },
+  "packages": [
+    "graphql-client",
+    "graphql-server"
+  ],
+  "version": "0.0.1"
+}

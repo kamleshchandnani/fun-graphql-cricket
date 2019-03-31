@@ -1,0 +1,11 @@
+{
+  "extends": "../babel.config.js",
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "node": "8.10"
+      },
+      "modules": false
+    }]
+  ]
+}
