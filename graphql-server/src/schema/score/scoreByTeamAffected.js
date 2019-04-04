@@ -1,16 +1,19 @@
-import { gql } from 'apollo-server-express';
+import { gql, withFilter } from 'apollo-server-express';
 import pubsub from '../../PubSub';
 
 const typeDefs = gql`
   extend type Subscription {
-    scoreByTeamAffected: Score!
+    scoreByTeamAffected(id: ID!): Score!
   }
 `;
 
 const resolvers = {
   Subscription: {
     scoreByTeamAffected: {
-      subscribe: () => pubsub.asyncIterator([pubsub.exchange]),
+      subscribe: withFilter(
+        () => pubsub.asyncIterator([pubsub.exchange]),
+        (payload, args) => payload.scoreByTeamAffected.id === args.id,
+      ),
     },
   },
 };
