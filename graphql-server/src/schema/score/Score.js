@@ -1,17 +1,16 @@
 import { gql } from 'apollo-server-express';
 
+// TODO: convert runs from Int to RUNS_ENUM
 const typeDefs = gql`
   type Score {
-    id: ID!
     runs: Int!
     wickets: Int!
-    overs: Int!
+    overs: Float!
   }
 `;
 
 const resolvers = {
   Score: {
-    id: (score) => score.id,
     runs: (score) => score.runs,
     wickets: (score) => score.wickets,
     overs: (score) => score.overs,
