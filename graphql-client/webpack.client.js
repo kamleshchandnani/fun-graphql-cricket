@@ -23,10 +23,12 @@ module.exports = {
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
       { test: /\.mjs$/, type: 'javascript/auto', use: [] },
       { test: /\.css$/, use: ['raw-loader'] },
+      { test: /\.(gif|png|jpe?g|svg|ico)$/i, use: [{ loader: 'file-loader', options: { name: 'images/[name].[hash:8].[ext]' } }] },
     ] : [
       { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }] },
       { test: /\.mjs$/, type: 'javascript/auto', use: [] },
       { test: /\.css$/, use: ['raw-loader'] },
+      { test: /\.(gif|png|jpe?g|svg|ico)$/i, use: [{ loader: 'file-loader', options: { name: 'images/[name].[ext]' } }] },
     ],
   },
 

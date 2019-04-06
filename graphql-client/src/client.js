@@ -3,10 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import apolloClient from './apolloClient';
+import Wrapper from './app/Wrapper/Wrapper';
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
-    <div>test</div>
+    <Wrapper />
   </ApolloProvider>,
   document.getElementById('root'),
 );
