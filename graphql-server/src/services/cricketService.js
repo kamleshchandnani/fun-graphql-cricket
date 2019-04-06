@@ -19,6 +19,9 @@ export const createTeams = ({ teams }) => {
 
 export const getMatches = () => Object.values(state.match);
 
+export const getMatchById = (matchId) =>
+  Object.values(state.match).find((match) => match.id === matchId);
+
 export const createMatches = ({ matches }) => {
   matches.forEach((match, index) => {
     const matchId = Object.values(state.match).length + index + 1;
