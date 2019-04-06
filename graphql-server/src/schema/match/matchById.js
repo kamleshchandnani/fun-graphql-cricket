@@ -2,13 +2,17 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
   extend type Query {
-    matches: [Match!]!
+    matchById(
+      matchId: ID!,
+    ): Match!
   }
 `;
 
 const resolvers = {
   Query: {
-    matches: (parent, args, context) => context.getMatches(),
+    matchById: (parent, args, context) => context.getMatchById({
+      matchId: args.matchId,
+    }),
   },
 };
 

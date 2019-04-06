@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import { ApolloServer } from 'apollo-server-express';
 import schema from './schema';
-import * as cricketService from './services/CricketService';
+import * as cricketService from './services/cricketService';
 
 const { PORT } = process.env;
 

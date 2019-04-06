@@ -1,22 +1,22 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
-  input MatchInput {
-    location: String!
-    teamIds: [ID!]!
+  input TeamInput {
+    name: String!
+    imageUrl: String!
   }
 
   extend type Mutation {
-    createMatches(
-      matches: [MatchInput!]!,
+    teamsCreate(
+      teams: [TeamInput!]!,
     ): Boolean!
   }
 `;
 
 const resolvers = {
   Mutation: {
-    createMatches: (parent, args, context) => context.createMatches({
-      matches: args.matches,
+    teamsCreate: (parent, args, context) => context.createTeams({
+      teams: args.teams,
     }),
   },
 };

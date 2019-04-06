@@ -1,16 +1,16 @@
 import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
 import Score from './Score';
-import updateScore from './updateScore';
+import scoreUpdate from './scoreUpdate';
 
 const typeDefs = flatten([
   Score.typeDefs,
-  updateScore.typeDefs,
+  scoreUpdate.typeDefs,
 ]);
 
 const resolvers = merge(
   Score.resolvers,
-  updateScore.resolvers,
+  scoreUpdate.resolvers,
 );
 
 export default {

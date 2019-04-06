@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
   extend type Mutation {
-    createInning(
+    inningCreate(
       matchId: ID!,
       battingTeamId: ID!,
     ): Boolean!
@@ -11,7 +11,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Mutation: {
-    createInning: (parent, args, context) => context.createInning({
+    inningCreate: (parent, args, context) => context.createInning({
       matchId: args.matchId,
       battingTeamId: args.battingTeamId,
     }),

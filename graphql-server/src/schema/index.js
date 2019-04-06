@@ -23,7 +23,7 @@
  * Type Score {
  *   runs: Int!
  *   wickets: Int!
- *   overs: Float!
+ *   balls: Int!
  * }
  *
  * query teams: [Team!]!

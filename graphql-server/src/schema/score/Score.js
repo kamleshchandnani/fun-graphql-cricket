@@ -5,13 +5,13 @@ const typeDefs = gql`
   type Score {
     runs: Int!
     wickets: Int!
-    overs: Float!
+    balls: Int!
   }
 
   input ScoreInput {
     runs: Int!
     wickets: Int!
-    overs: Float!
+    balls: Int!
   }
 `;
 
@@ -19,7 +19,7 @@ const resolvers = {
   Score: {
     runs: (score) => score.runs,
     wickets: (score) => score.wickets,
-    overs: (score) => score.overs,
+    balls: (score) => score.balls,
   },
 };
 
