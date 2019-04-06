@@ -5,7 +5,12 @@ const typeDefs = gql`
   type Team {
     id: ID!
     name: String!
-    players: [Player!]!
+    imageUrl: String!
+  }
+
+  input TeamInput {
+    id: ID!
+    name: String!
     imageUrl: String!
   }
 `;
@@ -14,7 +19,6 @@ const resolvers = {
   Team: {
     id: (team) => team.id,
     name: (team) => team.name,
-    players: (team) => team.players,
     imageUrl: (team) => team.imageUrl,
   },
 };

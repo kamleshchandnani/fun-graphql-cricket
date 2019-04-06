@@ -7,6 +7,12 @@ const typeDefs = gql`
     wickets: Int!
     overs: Float!
   }
+
+  input ScoreInput {
+    runs: Int!
+    wickets: Int!
+    overs: Float!
+  }
 `;
 
 const resolvers = {
