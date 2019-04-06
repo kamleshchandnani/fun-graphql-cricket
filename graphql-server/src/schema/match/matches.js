@@ -8,7 +8,16 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    matches: (parent, args, context) => context.getMatches(),
+    matches: (parent, args, context) => {
+      const matches = context.getMatches();
+      const teams = context.getTeams();
+      return matches.map((match) => ({
+        ...match,
+        teams: match.teamIds.map(
+          (teamId) => teams.find((team) => team.id === teamId),
+        ),
+      }));
+    },
   },
 };
 

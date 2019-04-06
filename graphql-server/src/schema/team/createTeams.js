@@ -1,6 +1,11 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
+  input TeamInput {
+    name: String!
+    imageUrl: String!
+  }
+
   extend type Mutation {
     createTeams(
       teams: [TeamInput!]!,

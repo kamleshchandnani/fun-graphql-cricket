@@ -7,12 +7,6 @@ const typeDefs = gql`
     name: String!
     imageUrl: String!
   }
-
-  input TeamInput {
-    id: ID!
-    name: String!
-    imageUrl: String!
-  }
 `;
 
 const resolvers = {

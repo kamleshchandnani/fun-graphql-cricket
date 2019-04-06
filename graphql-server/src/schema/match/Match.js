@@ -8,12 +8,6 @@ const typeDefs = gql`
     innings: [Inning!]!
     location: String!
   }
-
-  input MatchInput {
-    id: ID!
-    teams: [TeamInput!]!
-    location: String!
-  }
 `;
 
 const resolvers = {

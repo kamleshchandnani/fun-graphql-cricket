@@ -5,26 +5,31 @@ const state = {
 
 export const getTeams = () => Object.values(state.team);
 
-export const createTeams = (teams) => {
+export const createTeams = ({ teams }) => {
+  const numberOfTeams = Object.values(state.team).length;
   teams.forEach((team, index) => {
-    const teamId = Object.values(state.team).length + index + 1;
+    const teamId = numberOfTeams + index + 1;
     state.team[teamId] = {
       ...team,
-      id: teamId,
+      id: `${teamId}`,
     };
   });
+  return true;
 };
 
 export const getMatches = () => Object.values(state.match);
 
-export const createMatches = (matches) => {
+export const createMatches = ({ matches }) => {
   matches.forEach((match, index) => {
     const matchId = Object.values(state.match).length + index + 1;
     state.match[matchId] = {
       ...match,
-      id: matchId,
+      innings: [],
+      id: `${matchId}`,
     };
   });
+
+  return true;
 };
 
 export const createInning = (matchId, battingTeamId) => {
@@ -40,4 +45,6 @@ export const createInning = (matchId, battingTeamId) => {
       },
     },
   ];
+
+  return true;
 };
