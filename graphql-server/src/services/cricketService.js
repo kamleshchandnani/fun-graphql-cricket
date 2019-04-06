@@ -1,3 +1,5 @@
+import pubsub from '../PubSub';
+
 const state = {
   team: {},
   match: {},
@@ -17,25 +19,7 @@ export const createTeams = ({ teams }) => {
   return true;
 };
 
-export const getMatches = () => {
-  const matches = Object.values(state.match);
-  const teams = Object.values(state.team);
-  return matches.map((match) => ({
-    ...match,
-    teams: match.teamIds.map(
-      (teamId) => teams.find((team) => team.id === teamId),
-    ),
-    innings: match.innings.map((inning) => ({
-      ...inning,
-      battingTeam: teams.find((team) => team.id === inning.battingTeamId),
-      bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
-      score: inning.score,
-    })),
-  }));
-};
-
-export const getMatchById = ({ matchId }) => {
-  const match = Object.values(state.match).find((matchObj) => matchObj.id === matchId);
+const resolveMatch = (match) => {
   const teams = Object.values(state.team);
   return {
     ...match,
@@ -46,9 +30,25 @@ export const getMatchById = ({ matchId }) => {
       ...inning,
       battingTeam: teams.find((team) => team.id === inning.battingTeamId),
       bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
-      score: inning.score,
     })),
   };
+};
+
+const publishMatches = () => {
+  pubsub.publish(pubsub.exchange, {
+    matchesAffected: Object.values(state.match).map(resolveMatch),
+  });
+};
+
+export const getMatches = () => {
+  const matches = Object.values(state.match)
+    .map(resolveMatch);
+  return matches;
+};
+
+export const getMatchById = ({ matchId }) => {
+  const match = Object.values(state.match).find((matchObj) => matchObj.id === matchId);
+  return resolveMatch(match);
 };
 
 export const createMatches = ({ matches }) => {
@@ -61,6 +61,7 @@ export const createMatches = ({ matches }) => {
     };
   });
 
+  publishMatches();
   return true;
 };
 
@@ -79,6 +80,7 @@ export const createInning = ({ matchId, battingTeamId }) => {
     },
   ];
 
+  publishMatches();
   return true;
 };
 
@@ -118,10 +120,10 @@ export const updateScore = ({ matchId, inningId }) => {
           },
         };
       }
-
       return inning;
     });
   }
 
+  publishMatches();
   return getMatchById({ matchId });
 };
