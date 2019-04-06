@@ -7,7 +7,7 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    createTeams(
+    teamsCreate(
       teams: [TeamInput!]!,
     ): Boolean!
   }
@@ -15,7 +15,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Mutation: {
-    createTeams: (parent, args, context) => context.createTeams({
+    teamsCreate: (parent, args, context) => context.createTeams({
       teams: args.teams,
     }),
   },

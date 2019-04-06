@@ -2,18 +2,18 @@ import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
   extend type Mutation {
-    createInning(
+    scoreUpdate(
       matchId: ID!,
-      battingTeamId: ID!,
+      score: ScoreInput!,
     ): Boolean!
   }
 `;
 
 const resolvers = {
   Mutation: {
-    createInning: (parent, args, context) => context.createInning({
+    scoreUpdate: (parent, args, context) => context.updateScore({
       matchId: args.matchId,
-      battingTeamId: args.battingTeamId,
+      score: args.score,
     }),
   },
 };

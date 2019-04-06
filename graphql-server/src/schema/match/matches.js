@@ -16,6 +16,11 @@ const resolvers = {
         teams: match.teamIds.map(
           (teamId) => teams.find((team) => team.id === teamId),
         ),
+        innings: match.innings.map((inning) => ({
+          battingTeam: teams.find((team) => team.id === inning.battingTeamId),
+          bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
+          score: inning.score,
+        })),
       }));
     },
   },
