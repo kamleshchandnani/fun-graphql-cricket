@@ -26,6 +26,7 @@ export const getMatches = () => {
       (teamId) => teams.find((team) => team.id === teamId),
     ),
     innings: match.innings.map((inning) => ({
+      ...inning,
       battingTeam: teams.find((team) => team.id === inning.battingTeamId),
       bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
       score: inning.score,
@@ -42,6 +43,7 @@ export const getMatchById = ({ matchId }) => {
       (teamId) => teams.find((team) => team.id === teamId),
     ),
     innings: match.innings.map((inning) => ({
+      ...inning,
       battingTeam: teams.find((team) => team.id === inning.battingTeamId),
       bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
       score: inning.score,
@@ -66,12 +68,13 @@ export const createInning = ({ matchId, battingTeamId }) => {
   state.match[matchId].innings = [
     ...state.match[matchId].innings,
     {
+      id: `${state.match[matchId].innings.length + 1}`,
       battingTeamId,
       bowlingTeamId: state.match[matchId].teamIds.find((teamId) => teamId !== battingTeamId),
       score: {
         runs: 0,
         wickets: 0,
-        overs: 0,
+        balls: 0,
       },
     },
   ];
@@ -79,4 +82,46 @@ export const createInning = ({ matchId, battingTeamId }) => {
   return true;
 };
 
-export const updateScore = () => {};
+export const updateScore = ({ matchId, inningId }) => {
+  // TODO: Please suggest better names for values and randomValue 🤦‍
+  const values = [1, 2, 4, 6, 'WIDE', 'OUT'];
+  const randomValue = values[Math.floor(Math.random() * values.length)];
+
+  if ([1, 2, 4, 6].includes(randomValue)) {
+    state.match[matchId].innings = state.match[matchId].innings.map((inning) => {
+      if (inning.id === inningId) {
+        if ([1, 2, 4, 6].includes(randomValue)) {
+          return {
+            ...inning,
+            score: {
+              ...inning.score,
+              runs: inning.score.runs + randomValue,
+              balls: inning.score.balls + 1,
+            },
+          };
+        }
+      } else if (randomValue === 'WIDE') {
+        return {
+          ...inning,
+          score: {
+            ...inning.score,
+            runs: inning.score.runs + 1,
+          },
+        };
+      } else if (randomValue === 'OUT') {
+        return {
+          ...inning,
+          score: {
+            ...inning.score,
+            wickets: inning.score.wickets + 1,
+            balls: inning.score.balls + 1,
+          },
+        };
+      }
+
+      return inning;
+    });
+  }
+
+  return getMatchById({ matchId });
+};
