@@ -17,10 +17,37 @@ export const createTeams = ({ teams }) => {
   return true;
 };
 
-export const getMatches = () => Object.values(state.match);
+export const getMatches = () => {
+  const matches = Object.values(state.match);
+  const teams = Object.values(state.team);
+  return matches.map((match) => ({
+    ...match,
+    teams: match.teamIds.map(
+      (teamId) => teams.find((team) => team.id === teamId),
+    ),
+    innings: match.innings.map((inning) => ({
+      battingTeam: teams.find((team) => team.id === inning.battingTeamId),
+      bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
+      score: inning.score,
+    })),
+  }));
+};
 
-export const getMatchById = (matchId) =>
-  Object.values(state.match).find((match) => match.id === matchId);
+export const getMatchById = ({ matchId }) => {
+  const match = Object.values(state.match).find((matchObj) => matchObj.id === matchId);
+  const teams = Object.values(state.team);
+  return {
+    ...match,
+    teams: match.teamIds.map(
+      (teamId) => teams.find((team) => team.id === teamId),
+    ),
+    innings: match.innings.map((inning) => ({
+      battingTeam: teams.find((team) => team.id === inning.battingTeamId),
+      bowlingTeam: teams.find((team) => team.id === inning.bowlingTeamId),
+      score: inning.score,
+    })),
+  };
+};
 
 export const createMatches = ({ matches }) => {
   matches.forEach((match, index) => {
@@ -51,3 +78,5 @@ export const createInning = ({ matchId, battingTeamId }) => {
 
   return true;
 };
+
+export const updateScore = () => {};
