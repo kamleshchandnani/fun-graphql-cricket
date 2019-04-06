@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import { ApolloServer } from 'apollo-server-express';
 import schema from './schema';
+import * as cricketService from './services/CricketService';
 
 const { PORT } = process.env;
 
@@ -15,6 +16,9 @@ app.use('/health', (req, res) => res.send({ 'graphql-server': true }));
 const server = new ApolloServer({
   typeDefs: schema.typeDefs,
   resolvers: schema.resolvers,
+  context: {
+    ...cricketService,
+  },
   playground: __STAGE__ !== 'production',
   introspection: __STAGE__ !== 'production',
   subscriptions: {
