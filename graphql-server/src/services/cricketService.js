@@ -88,20 +88,17 @@ export const updateScore = ({ matchId, inningId }) => {
   // TODO: Please suggest better names for values and randomValue 🤦‍
   const values = [1, 2, 4, 6, 'WIDE', 'OUT'];
   const randomValue = values[Math.floor(Math.random() * values.length)];
-
-  if ([1, 2, 4, 6].includes(randomValue)) {
-    state.match[matchId].innings = state.match[matchId].innings.map((inning) => {
-      if (inning.id === inningId) {
-        if ([1, 2, 4, 6].includes(randomValue)) {
-          return {
-            ...inning,
-            score: {
-              ...inning.score,
-              runs: inning.score.runs + randomValue,
-              balls: inning.score.balls + 1,
-            },
-          };
-        }
+  state.match[matchId].innings = state.match[matchId].innings.map((inning) => {
+    if (inning.id === inningId) {
+      if ([1, 2, 4, 6].includes(randomValue)) {
+        return {
+          ...inning,
+          score: {
+            ...inning.score,
+            runs: inning.score.runs + randomValue,
+            balls: inning.score.balls + 1,
+          },
+        };
       } else if (randomValue === 'WIDE') {
         return {
           ...inning,
@@ -120,9 +117,10 @@ export const updateScore = ({ matchId, inningId }) => {
           },
         };
       }
-      return inning;
-    });
-  }
+    }
+
+    return inning;
+  });
 
   publishMatches();
   return getMatchById({ matchId });

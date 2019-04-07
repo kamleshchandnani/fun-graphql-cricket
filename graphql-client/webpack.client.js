@@ -56,6 +56,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __STAGE__: JSON.stringify(process.env.STAGE),
+      __PUBLIC_PATH__: JSON.stringify(process.env.APP_PUBLIC_PATH),
     }),
     new CleanWebpackPlugin(),
     new AssetsPlugin({
