@@ -51,6 +51,7 @@ const typeDefs = flatten([
   gql`
     type Query
     type Mutation
+    type Subscription
   `,
   inning.typeDefs,
   match.typeDefs,
