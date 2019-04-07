@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import * as matchFragments from './matchFragments';
 
 export const MATCH_QUERY = gql`
   query matchQuery(
@@ -10,25 +11,17 @@ export const MATCH_QUERY = gql`
       id
       location
       teams {
-        id
-        name
-        imageUrl
+        ...TeamFields
       }
       innings {
-        battingTeam {
-          id
-          name
-        }
-        bowlingTeam {
-          id
-          name
-        }
+        ...InningFields
         score {
-          runs
-          wickets
-          balls
+          ...ScoreFields
         }
       }
     }
   }
+  ${matchFragments.TEAM_FIELDS_FRAGMENT}
+  ${matchFragments.INNING_FIELDS_FRAGMENT}
+  ${matchFragments.SCORE_FIELDS_FRAGMENT}
 `;

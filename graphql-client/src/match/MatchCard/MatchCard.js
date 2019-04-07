@@ -37,7 +37,7 @@ const MatchCard = (props) => {
     const unsubscribeMatchUpdates = matchQuery.subscribeToMore({
       document: subscriptions.MATCH_UPDATES_SUBSCRIPTION,
       variables: {
-        matchId: '1',
+        matchId: props.matchId,
       },
       updateQuery: (previousResult, { subscriptionData }) => {
         if (!subscriptionData.data) return previousResult;
@@ -97,14 +97,14 @@ const MatchCard = (props) => {
                               match.innings.map((inning) => {
                                 if (inning.battingTeam.id === team.id) {
                                   return (
-                                    <React.Fragment>
+                                    <React.Fragment key={team.id}>
                                       <Space margin={[7, 5, 0, 0]}>
                                         <StyledText align="center" weight="bold" fontSize="60px">
                                           {`${inning.score.runs}/${inning.score.wickets}`}
                                         </StyledText>
                                       </Space>
                                       <Space margin={[3, 5, 0, 0]}>
-                                        <StyledText align="center" weight="medium" fontSize="24px">Overs: {parseFloat(inning.score.balls / 6).toFixed(1)}</StyledText>
+                                        <StyledText align="center" weight="medium" fontSize="24px">Overs: {Math.trunc(inning.score.balls / 6) + ((inning.score.balls % 6) / 10)}</StyledText>
                                       </Space>
                                     </React.Fragment>
                                   );
@@ -135,14 +135,15 @@ const MatchCard = (props) => {
 
 MatchCard.propTypes = {
   matchQuery: PropTypes.object.isRequired,
+  matchId: PropTypes.string.isRequired,
 };
 
 export default compose(
   graphql(queries.MATCH_QUERY, {
     name: 'matchQuery',
-    options: () => ({
+    options: (props) => ({
       variables: {
-        matchId: '1',
+        matchId: props.matchId,
       },
     }),
   }),

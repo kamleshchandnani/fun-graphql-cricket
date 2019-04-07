@@ -1,8 +1,44 @@
 import pubsub from '../PubSub';
 
 const state = {
-  team: {},
-  match: {},
+  team: {
+    1: {
+      id: '1',
+      name: 'csk',
+      imageUrl: 'csk.png',
+    },
+    2: {
+      id: '2',
+      name: 'rcb',
+      imageUrl: 'rcb.png',
+    },
+  },
+  match: {
+    1: {
+      id: '1',
+      teamIds: ['1', '2'],
+      location: 'Bangalore',
+      innings: [{
+        id: '1',
+        battingTeamId: '1',
+        bowlingTeamId: '2',
+        score: {
+          runs: 0,
+          wickets: 0,
+          balls: 0,
+        },
+      }, {
+        id: '2',
+        battingTeamId: '2',
+        bowlingTeamId: '1',
+        score: {
+          runs: 0,
+          wickets: 0,
+          balls: 0,
+        },
+      }],
+    },
+  },
 };
 
 export const getTeams = () => Object.values(state.team);

@@ -7,7 +7,7 @@ const Wrapper = () => (
   <ThemeProvider theme={theme}>
     <React.Fragment>
       <BaseStyles />
-      <MatchCard />
+      <MatchCard matchId="1" />
     </React.Fragment>
   </ThemeProvider>
 );
