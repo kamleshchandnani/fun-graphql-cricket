@@ -1,8 +1,44 @@
 import pubsub from '../PubSub';
 
 const state = {
-  team: {},
-  match: {},
+  team: {
+    1: {
+      id: '1',
+      name: 'csk',
+      imageUrl: 'csk.png',
+    },
+    2: {
+      id: '2',
+      name: 'rcb',
+      imageUrl: 'rcb.png',
+    },
+  },
+  match: {
+    1: {
+      id: '1',
+      teamIds: ['1', '2'],
+      location: 'Bangalore',
+      innings: [{
+        id: '1',
+        battingTeamId: '1',
+        bowlingTeamId: '2',
+        score: {
+          runs: 0,
+          wickets: 0,
+          balls: 0,
+        },
+      }, {
+        id: '2',
+        battingTeamId: '2',
+        bowlingTeamId: '1',
+        score: {
+          runs: 0,
+          wickets: 0,
+          balls: 0,
+        },
+      }],
+    },
+  },
 };
 
 export const getTeams = () => Object.values(state.team);
@@ -88,20 +124,17 @@ export const updateScore = ({ matchId, inningId }) => {
   // TODO: Please suggest better names for values and randomValue 🤦‍
   const values = [1, 2, 4, 6, 'WIDE', 'OUT'];
   const randomValue = values[Math.floor(Math.random() * values.length)];
-
-  if ([1, 2, 4, 6].includes(randomValue)) {
-    state.match[matchId].innings = state.match[matchId].innings.map((inning) => {
-      if (inning.id === inningId) {
-        if ([1, 2, 4, 6].includes(randomValue)) {
-          return {
-            ...inning,
-            score: {
-              ...inning.score,
-              runs: inning.score.runs + randomValue,
-              balls: inning.score.balls + 1,
-            },
-          };
-        }
+  state.match[matchId].innings = state.match[matchId].innings.map((inning) => {
+    if (inning.id === inningId) {
+      if ([1, 2, 4, 6].includes(randomValue)) {
+        return {
+          ...inning,
+          score: {
+            ...inning.score,
+            runs: inning.score.runs + randomValue,
+            balls: inning.score.balls + 1,
+          },
+        };
       } else if (randomValue === 'WIDE') {
         return {
           ...inning,
@@ -120,9 +153,10 @@ export const updateScore = ({ matchId, inningId }) => {
           },
         };
       }
-      return inning;
-    });
-  }
+    }
+
+    return inning;
+  });
 
   publishMatches();
   return getMatchById({ matchId });
