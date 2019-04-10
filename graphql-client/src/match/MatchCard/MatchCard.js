@@ -31,13 +31,13 @@ const StyledText = styled(Text)`
 `;
 
 const MatchCard = (props) => {
-  const { matchQuery } = props;
+  const { matchId, matchQuery } = props;
 
   useEffect(() => {
     const unsubscribeMatchUpdates = matchQuery.subscribeToMore({
       document: subscriptions.MATCH_UPDATES_SUBSCRIPTION,
       variables: {
-        matchId: props.matchId,
+        matchId,
       },
       updateQuery: (previousResult, { subscriptionData }) => {
         if (!subscriptionData.data) return previousResult;
@@ -53,7 +53,7 @@ const MatchCard = (props) => {
     });
 
     return () => unsubscribeMatchUpdates();
-  });
+  }, [matchId, matchQuery]);
 
   if (matchQuery.loading) {
     return <div>Loading Match..</div>;
